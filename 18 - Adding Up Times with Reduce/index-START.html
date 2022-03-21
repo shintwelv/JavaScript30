@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Videos</title>
 </head>
+
 <body>
   <ul class="videos">
     <li data-time="5:43">
@@ -181,7 +183,43 @@
       Video 58
     </li>
   </ul>
-<script>
-</script>
+  <script>
+    const lis = document.querySelectorAll('li');
+    const timeArr = [];
+    lis.forEach(li => timeArr.push(li.dataset.time))
+    console.log(timeArr);
+    const totalTime = timeArr.reduce((prev, curr) => prev + calculateSeconds(curr), 0);
+
+    function calculateSeconds(time) {
+      const min = Number(time.split(':')[0]);
+      const sec = Number(time.split(':')[1]);
+
+      const result = min * 60 + sec;
+
+      return result;
+    }
+
+    function calculateHourMinSecond(time) {
+      const hrs = Math.floor(time / 3600);
+      const mins = Math.floor((time % 3600) / 60);
+      const secs = time % 60
+
+      const result = {
+        hours: hrs,
+        minutes: mins,
+        seconds: secs
+      }
+
+
+      return result;
+    }
+
+    const convertedTime = calculateHourMinSecond(totalTime);
+
+    console.log(`TOTAL: ${convertedTime.hours} hours ${convertedTime.minutes} minutes ${convertedTime.seconds} seconds`);
+
+
+  </script>
 </body>
+
 </html>
